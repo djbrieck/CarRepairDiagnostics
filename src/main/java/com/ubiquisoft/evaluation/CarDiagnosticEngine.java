@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.InputStream;
+import java.util.Map;
 
 public class CarDiagnosticEngine {
 
@@ -38,6 +39,37 @@ public class CarDiagnosticEngine {
 		 * Treat the console as information being read by a user of this application. Attempts should be made to ensure
 		 * console output is as least as informative as the provided methods.
 		 */
+
+		//Validating basic car attributes are present.
+		if (car.getMake() == null || car.getMake().isEmpty()){
+			System.out.println("Car make must be provided and can't be empty");
+			System.exit(1);
+
+		}
+
+		if (car.getModel() == null || car.getModel().isEmpty()){
+			System.out.println("Car model information has to be entered and cannot be empty.");
+			System.exit(2);
+		}
+
+		if(car.getYear() == null || car.getYear().isEmpty()){
+			System.out.println("Car year is required and must not be ");
+			System.exit(3);
+		}
+
+		System.out.printf("Make: %s, model:%s and, year:%s has been provided.\n", car.getMake(), car.getModel(), car.getYear());
+
+		//Determine what is missing.
+		Map partsMissingMap;
+
+		partsMissingMap = car.getMissingPartsMap();
+
+//		partsMissingMap.forEach((key,value) -> {
+//			//System.out.println("Key: " + key + " Value: " + value);
+//			printMissingPart(key, value);
+//		});
+
+
 
 
 	}

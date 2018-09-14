@@ -3,6 +3,8 @@ package com.ubiquisoft.evaluation.domain;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,82 @@ public class Car {
 		 *      }
 		 */
 
-		return null;
+		System.out.println("In the getMissingPartsMap method");
+
+
+		//Map of missing parts empty.
+
+		Map missingPartsMap  =  new HashMap();
+
+
+		if( parts == null || parts.isEmpty()){
+			//All the parts are missing case
+			missingPartsMap.put(PartType.ENGINE, 1);
+			missingPartsMap.put(PartType.ELECTRICAL, 1);
+			missingPartsMap.put(PartType.FUEL_FILTER, 1);
+			missingPartsMap.put(PartType.OIL_FILTER, 1);
+			missingPartsMap.put(PartType.TIRE,4);
+
+
+		}else{
+			//Check what we have and build a return as we go.
+
+
+			Integer engineCount = 0;
+			Integer electricalCount = 0;
+			Integer fuelFilterCount = 0;
+			Integer oilFilterCount = 0;
+			Integer tireCount = 0;
+			PartType type;
+
+			//Getting and counting the parts
+			for (Part part: parts){
+               type = part.getType();
+
+               if (type == PartType.ENGINE){
+                   engineCount++;
+               }else if (type == PartType.ELECTRICAL){
+                   electricalCount++;
+               }else if (type == PartType.FUEL_FILTER){
+                    fuelFilterCount++;
+               }else if (type ==PartType.OIL_FILTER){
+                    oilFilterCount++;
+               }else if (type ==PartType.TIRE){
+                    tireCount++;
+               }
+			}
+            System.out.printf("Engine Count is: %d, electrical: %d, fuelFilter: %d, oilFilter: %d, tires: %d \n", engineCount, electricalCount, fuelFilterCount,oilFilterCount,tireCount );
+
+			//Determine what is missing logic
+			if(engineCount == 0 ){
+			    System.out.println("No Engine!");
+			    missingPartsMap.put(PartType.ENGINE, 1);
+            }
+
+            if(electricalCount ==0 ){
+                System.out.println("No Electrical");
+                missingPartsMap.put(PartType.ELECTRICAL, 1);
+            }
+
+            if(fuelFilterCount ==0 ){
+                System.out.println("No Fuel Filter!");
+                missingPartsMap.put(PartType.FUEL_FILTER, 1);
+            }
+
+            if(oilFilterCount == 0 ){
+                System.out.println("No Oil Filter");
+                missingPartsMap.put(PartType.OIL_FILTER, 1);
+            }
+
+            if(tireCount < 4){
+                Integer tireBalance = 4 - tireCount;
+                System.out.printf("%d Tires are Missing ", tireBalance);
+                missingPartsMap.put(PartType.TIRE, tireBalance);
+            }
+
+		}
+
+		return missingPartsMap;
 	}
 
 	@Override

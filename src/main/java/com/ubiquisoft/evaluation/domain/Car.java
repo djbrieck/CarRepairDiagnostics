@@ -34,7 +34,6 @@ public class Car {
 		 */
 
 		//Map of missing parts empty.
-
 		Map <PartType, Integer>missingPartsMap  =  new HashMap();
 
 
@@ -48,9 +47,8 @@ public class Car {
 
 
 		}else{
-			//Check what we have and build a return as we go.
-
-
+			//Check what we have and build a return as we go of any missing parts.
+            
 			Integer engineCount = 0;
 			Integer electricalCount = 0;
 			Integer fuelFilterCount = 0;

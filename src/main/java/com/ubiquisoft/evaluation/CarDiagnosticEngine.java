@@ -93,9 +93,6 @@ public class CarDiagnosticEngine {
 		}else{
 			System.out.println("No Problems found, all systems PASS.");
 		}
-
-
-
 	}
 
 	private void printMissingPart(PartType partType, Integer count) {

@@ -38,7 +38,7 @@ public class Car {
 
 		//Map of missing parts empty.
 
-		Map missingPartsMap  =  new HashMap();
+		Map <PartType, Integer>missingPartsMap  =  new HashMap();
 
 
 		if( parts == null || parts.isEmpty()){
@@ -77,32 +77,26 @@ public class Car {
                     tireCount++;
                }
 			}
-            System.out.printf("Engine Count is: %d, electrical: %d, fuelFilter: %d, oilFilter: %d, tires: %d \n", engineCount, electricalCount, fuelFilterCount,oilFilterCount,tireCount );
 
 			//Determine what is missing logic
 			if(engineCount == 0 ){
-			    System.out.println("No Engine!");
 			    missingPartsMap.put(PartType.ENGINE, 1);
             }
 
             if(electricalCount ==0 ){
-                System.out.println("No Electrical");
                 missingPartsMap.put(PartType.ELECTRICAL, 1);
             }
 
             if(fuelFilterCount ==0 ){
-                System.out.println("No Fuel Filter!");
                 missingPartsMap.put(PartType.FUEL_FILTER, 1);
             }
 
             if(oilFilterCount == 0 ){
-                System.out.println("No Oil Filter");
                 missingPartsMap.put(PartType.OIL_FILTER, 1);
             }
 
             if(tireCount < 4){
                 Integer tireBalance = 4 - tireCount;
-                System.out.printf("%d Tires are Missing ", tireBalance);
                 missingPartsMap.put(PartType.TIRE, tireBalance);
             }
 

@@ -60,15 +60,13 @@ public class CarDiagnosticEngine {
 		System.out.printf("Make: %s, model:%s and, year:%s has been provided.\n", car.getMake(), car.getModel(), car.getYear());
 
 		//Determine what is missing.
-		Map partsMissingMap;
+		Map <PartType, Integer>partsMissingMap;
 
 		partsMissingMap = car.getMissingPartsMap();
 
-//		partsMissingMap.forEach((key,value) -> {
-//			//System.out.println("Key: " + key + " Value: " + value);
-//			printMissingPart(key, value);
-//		});
-
+		for (Map.Entry<PartType,Integer> partEntry : partsMissingMap.entrySet()){
+			printMissingPart(partEntry.getKey(),partEntry.getValue());
+		}
 
 
 

@@ -33,9 +33,6 @@ public class Car {
 		 *      }
 		 */
 
-		System.out.println("In the getMissingPartsMap method");
-
-
 		//Map of missing parts empty.
 
 		Map <PartType, Integer>missingPartsMap  =  new HashMap();

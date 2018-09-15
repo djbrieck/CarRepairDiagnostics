@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
 public class CarDiagnosticEngine {
@@ -43,29 +44,54 @@ public class CarDiagnosticEngine {
 		//Validating basic car attributes are present.
 		if (car.getMake() == null || car.getMake().isEmpty()){
 			System.out.println("Car make must be provided and can't be empty");
-			System.exit(1);
+			System.exit(2);
 
 		}
 
 		if (car.getModel() == null || car.getModel().isEmpty()){
 			System.out.println("Car model information has to be entered and cannot be empty.");
-			System.exit(2);
+			System.exit(3);
 		}
 
 		if(car.getYear() == null || car.getYear().isEmpty()){
 			System.out.println("Car year is required and must not be ");
-			System.exit(3);
+			System.exit(4);
 		}
 
 		System.out.printf("Make: %s, model:%s and, year:%s has been provided.\n", car.getMake(), car.getModel(), car.getYear());
 
 		//Determine what is missing.
 		Map <PartType, Integer>partsMissingMap;
-
 		partsMissingMap = car.getMissingPartsMap();
 
-		for (Map.Entry<PartType,Integer> partEntry : partsMissingMap.entrySet()){
-			printMissingPart(partEntry.getKey(),partEntry.getValue());
+		//If we have missing parts then this must stop after printing missing parts.
+		if(! partsMissingMap.isEmpty()){
+			for (Map.Entry<PartType,Integer> partEntry : partsMissingMap.entrySet()){
+				printMissingPart(partEntry.getKey(),partEntry.getValue());
+			}
+
+			System.exit(5);
+		}
+
+		//Determine the condition of parts
+		List<Part> carsParts = car.getParts();
+
+		boolean conditionGood = true;
+
+		for (Part part: carsParts){
+			//Not in working condition
+			if(! part.isInWorkingCondition())
+			{
+				printDamagedPart(part.getType(),part.getCondition());
+				conditionGood =false;
+			}
+		}
+		if(! conditionGood){
+			System.out.println("FAIL: car needs repairs, fix parts noted above.");
+			System.exit(6);
+
+		}else{
+			System.out.println("No Problems found, all systems PASS.");
 		}
 
 
